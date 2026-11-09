@@ -1,10 +1,10 @@
 {
-  "name": "My Watchlist",
+  "name": "My Watchlist 2.0",
   "short_name": "Watchlist",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0d0e0f",
-  "theme_color": "#101010",
+  "background_color": "#101112",
+  "theme_color": "#101112",
   "icons": [
     {
       "src": "icon.svg",
@@ -12,5 +12,6 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "description": "A personal library for movies, anime and series."
 }

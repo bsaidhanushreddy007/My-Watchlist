@@ -1,36 +1,50 @@
-# My Watchlist
+# My Watchlist 2.0
 
-A cinematic, local-first entertainment tracker for movies, anime and web series.
+A local-first personal tracker for movies, anime and web series, with a clean multi-page layout and a compact navigation drawer.
 
-## Features
-- Add, edit, inspect and delete titles
-- Movie, Anime and Web Series categories
-- Yet to Watch, Currently Watching, Pending, Completed and Dropped statuses
-- Poster image upload stored in this browser
-- Personal rating, genre, priority, synopsis and review
-- Season/episode progress and percentage bar
-- Search, filters, sorting and favourites
-- Library statistics and JSON backup export/import
-- Installable PWA shell with offline caching
+## What's included
+- **Dashboard:** library summary, quick stats, continue-watching shortcuts and recent additions.
+- **My Library:** add, edit, delete, search, filter, sort, favourite and rate titles.
+- **Continue Watching:** track season, episode and total episode progress, with one-tap progress updates.
+- **Discover:** search TMDB, browse weekly trending titles and add metadata/posters/synopses to your library.
+- **Recommendations:** suggestions based on favourited or highly rated TMDB titles.
+- **Movie Journal:** dated watch entries with a rating, personal reflection and favourite scene/detail.
+- **Collections:** create named lists and group titles into them.
+- **Personal Insights:** genre breakdown, ratings, counts and estimated watch time.
+- **Settings:** JSON backup and TMDB token management.
+- Installable PWA shell with offline app files.
 
-## Run
-Open `index.html` for a quick test. For installation/offline caching, serve over localhost or HTTPS. For example: `python -m http.server 8000`, then open `http://localhost:8000`.
+## Upgrade without losing your existing library
+The app deliberately retains the original browser storage key `my-watchlist-v1` and the TMDB token key `my-watchlist-tmdb-token`. Replace the old project files with these updated files on the **same GitHub Pages URL and browser**. Your existing titles, posters and saved TMDB token should remain available. The new collections and journal use separate storage keys.
 
-## Install on Android
-Host this folder on an HTTPS static host (GitHub Pages, Netlify, etc.), open the URL in Chrome, then choose **Install app** or **Add to Home screen**.
+Before upgrading, export a JSON backup from the old version. Keep that backup somewhere safe.
 
-## Local storage and privacy
-All entries and poster images are stored in this browser's localStorage. There is no account, cloud sync, analytics or server upload. Export backups regularly. Clearing browser data, changing browsers or devices can erase the library. This is not encrypted storage, so do not put sensitive information in it.
+## Run locally
+Open `index.html` for a quick test. For service-worker/PWA testing, serve the folder over localhost or HTTPS. Example:
 
-## Limitations
-No automatic movie metadata lookup; poster images are added by you. Episode progress is a simple title-level counter, not a detailed per-episode calendar. Google fonts are not required for core functionality; visual styling uses system fallback if offline.
+```bash
+python -m http.server 8000
+```
 
-## TMDB title search
-The app can search TMDB for movie and TV titles and import the title, poster URL, release year, synopsis and genre names.
-1. Create a free TMDB account and open https://www.themoviedb.org/settings/api.
-2. Request API access and copy the **API Read Access Token** (the long Bearer token, not the short API key).
-3. In My Watchlist choose **Search titles**, paste the token and select **Save token**.
-4. Search for a title and press **Add** on the result. TV results are added as Web Series by default; edit the title to change the type to Anime if appropriate.
-5. The token is saved in this browser's localStorage and is not included in the GitHub files. You can remove it by clearing the token field and saving/removing it in the search dialog.
+Then open `http://localhost:8000`.
 
-TMDB search requires an internet connection. TMDB metadata and poster images are fetched directly from TMDB. Review TMDB's attribution and API terms before public distribution. This is an unofficial project and is not endorsed by TMDB.
+## Publish on GitHub Pages
+1. Upload all project files to the repository root.
+2. In **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`.
+3. Open the published HTTPS URL. On Android Chrome, use **Install app** or **Add to Home screen**.
+
+## TMDB connection and token safety
+Discover, trending and recommendations use the TMDB API. The app reads the existing token from browser localStorage using `my-watchlist-tmdb-token`.
+
+- If your previous app already had the token saved in this browser, the upgraded app reuses it automatically.
+- Otherwise open **Settings → Manage token** (or Discover) and paste your TMDB **API Read Access Token** once. It is stored in this browser only.
+- The token is intentionally **not embedded in the HTML, JavaScript, ZIP or GitHub repository**. A token hard-coded into a public static site can be read by anyone inspecting the source. The token is not a secret-safe credential when used in a browser.
+- TMDB search/discovery requires an internet connection. Library records remain local.
+
+This product uses the TMDB API but is not endorsed or certified by TMDB. See https://www.themoviedb.org/documentation/api/terms-of-use.
+
+## Data and privacy
+Titles, notes, journal entries, collections and uploaded posters are stored in this browser's localStorage. There is no account or cloud sync. Data does not automatically transfer between devices or browsers. Export backups regularly. Browser localStorage is not encrypted, so do not store sensitive information here.
+
+## Notes about insights
+Estimated watch time is an approximation: two hours per movie and 24 minutes per watched episode. It is not measured playback time.
